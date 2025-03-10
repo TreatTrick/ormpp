@@ -29,6 +29,13 @@ const char *ip = "127.0.0.1";
 const char *username = "root";
 const char *db = "test_ormppdb";
 
+struct bit_test{
+  int id;
+  int bit_field;
+};
+REGISTER_AUTO_KEY(bit_test, id)
+YLT_REFL(bit_test, id, bit_field)
+
 struct person {
   std::string name;
   int age;
@@ -103,6 +110,18 @@ struct test_optional {
 };
 REGISTER_AUTO_KEY(test_optional, id)
 YLT_REFL(test_optional, id, name, age, empty_);
+
+TEST_CASE("bit_test"){
+  dbng<mysql> mysql;
+  if (mysql.connect(ip, username, password, db)) {
+    auto vec = mysql.query_s<bit_test>();
+    REQUIRE(vec.size() == 2);
+    CHECK(vec[0].id == 1);
+    CHECK(vec[0].bit_field == true);
+    CHECK(vec[1].id == 2);
+    CHECK(vec[1].bit_field == false);
+  }
+}
 
 TEST_CASE("optional") {
 #ifdef ORMPP_ENABLE_MYSQL

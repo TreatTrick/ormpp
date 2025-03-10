@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.15)
 project(ormpp)
 
+
+
 set(ENABLE_MYSQL ON)
 set(BUILD_UNIT_TESTS ON)
 add_definitions(-DORMPP_ENABLE_MYSQL)
 include(cmake/mysql.cmake)
+set(CMAKE_BUILD_TYPE "Debug")
 
 include(cmake/build.cmake)
 include(cmake/develop.cmake)

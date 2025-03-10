@@ -1,5 +1,6 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
 project(test_ormpp)
+
 add_executable(${PROJECT_NAME}
         test_ormpp.cpp
         main.cpp
